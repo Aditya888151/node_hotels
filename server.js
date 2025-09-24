@@ -54,10 +54,20 @@ const menuRoutes = require('./routes/menuRoutes');
 const personRoutes = require('./routes/personRoutes');
 
 
-app.use('/person',personRoutes);
+// API Routes
+app.use('/person', personRoutes);
 app.use('/menu', menuRoutes);
-app.use('/api/person',personRoutes);
+app.use('/api/person', personRoutes);
 app.use('/api/menu', menuRoutes);
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+    timestamp: new Date().toISOString()
+  });
+});
 
 const PORT = process.env.PORT || 4000;
 
