@@ -26,7 +26,8 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const menuId = req.params.id;
-    const updatedMenu = req.body;
+    const { name, price, category, taste, is_drink, ingredients, num_sales } = req.body;
+    const updatedMenu = { name, price, category, taste, is_drink, ingredients, num_sales };
     const response = await Menu.findByIdAndUpdate(menuId, updatedMenu, {
       new: true,
       runValidators: true,

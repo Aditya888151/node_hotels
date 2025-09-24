@@ -49,7 +49,8 @@ router.get('/:workType', async (req, res) =>{
 router.put('/:id', async (req, res) => {
   try {
     const personId = req.params.id;
-    const updatedPerson = req.body;
+    const { name, age, work, mobile, email, salary, address } = req.body;
+    const updatedPerson = { name, age, work, mobile, email, salary, address };
     const response = await Person.findByIdAndUpdate(personId, updatedPerson, {
       new: true,
       runValidators: true,
