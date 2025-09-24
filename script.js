@@ -1,6 +1,10 @@
+// Use a different API path to avoid ad blocker detection
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:4000' 
   : 'https://hotels-wf9d.onrender.com';
+
+console.log('API Base URL:', API_BASE);
+console.log('Current hostname:', window.location.hostname);
 
 // Navigation
 function showSection(sectionName) {
@@ -72,10 +76,19 @@ document.getElementById('person-form').addEventListener('submit', async (e) => {
 
 async function loadAllStaff() {
     try {
+        console.log('Loading staff from:', `${API_BASE}/person`);
         const response = await fetch(`${API_BASE}/person`);
+        console.log('Staff response status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const staff = await response.json();
+        console.log('Staff data:', staff);
         displayStaff(staff);
     } catch (error) {
+        console.error('Staff loading error:', error);
         showMessage('Error loading staff: ' + error.message, 'error');
     }
 }
