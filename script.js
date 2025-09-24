@@ -75,10 +75,21 @@ document.getElementById('person-form').addEventListener('submit', async (e) => {
 
 async function loadAllStaff() {
     try {
+        console.log('Fetching staff from:', `${API_BASE}/person`);
         const response = await fetch(`${API_BASE}/person`);
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('API Error:', errorText);
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
         const staff = await response.json();
+        console.log('Staff data:', staff);
         displayStaff(staff);
     } catch (error) {
+        console.error('Load staff error:', error);
         showMessage('Error loading staff: ' + error.message, 'error');
     }
 }

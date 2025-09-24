@@ -3,6 +3,7 @@ require('dotenv').config();
 
 // const local_URL = process.env.LOCALDB;
 const mongoURL = process.env.MONGODB_URL || 'mongodb+srv://singhaditya8052_db_user:Aditya8892@cluster0.h42azqe.mongodb.net/restaurant';
+console.log('MongoDB URL:', mongoURL.substring(0, 20) + '...');
 console.log('Connecting to MongoDB...');
 
 
