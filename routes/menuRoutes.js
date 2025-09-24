@@ -23,4 +23,40 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+    const menuId = req.params.id;
+    const updatedMenu = req.body;
+    const response = await Menu.findByIdAndUpdate(menuId, updatedMenu, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!response) {
+      return res.status(404).json({error: 'Menu item not found'});
+    }
+
+    console.log('Menu item updated');
+    res.status(200).json(response);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const menuId = req.params.id;
+    const response = await Menu.findByIdAndDelete(menuId);
+    if (!response) {
+      return res.status(404).json({error: 'Menu item not found'});
+    }
+    console.log('Menu item deleted');
+    res.status(200).json({message: 'Menu item deleted successfully'});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: 'Internal server error'});
+  }
+});
+
 module.exports = router;
