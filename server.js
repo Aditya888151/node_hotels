@@ -15,7 +15,16 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.static(__dirname));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// Serve static files directly
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'style.css'));
+});
+
+app.get('/script.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'script.js'));
+});
 
 // Routes
 app.get('/', (req, res) => {
