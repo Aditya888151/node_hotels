@@ -9,9 +9,14 @@ const menuSchema = new mongoose.Schema({
     type: Number, 
     required: true 
   },
+  category: {
+    type: String,
+    enum: ['appetizer','bred', 'main-course', 'dessert', 'beverage', 'salad', 'soup'],
+    default: 'main-course'
+  },
   taste: { 
     type: String, 
-    enum: ['sweet', 'spicy', 'sour'], 
+    enum: ['sweet', 'spicy', 'sour','normal'], 
     required: true 
   },
   is_drink: { 

@@ -18,9 +18,9 @@ const personSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function(v) { 
-        return /\d{3}-\d{3}-\d{4}/.test(v); 
+        return /^[\d\s\-\+\(\)]{10,15}$/.test(v); 
       },
-      message: 'Invalid phone number format'
+      message: 'Mobile number must be 10-15 digits'
     }
   },
   email: { 

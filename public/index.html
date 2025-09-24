@@ -34,7 +34,7 @@
                             <option value="waiter">Waiter</option>
                             <option value="manager">Manager</option>
                         </select>
-                        <input type="tel" id="person-mobile" placeholder="123-456-7890" required>
+                        <input type="tel" id="person-mobile" placeholder="Mobile Number" required>
                     </div>
                     <div class="form-row">
                         <input type="email" id="person-email" placeholder="Email" required>
@@ -85,12 +85,25 @@
                         <input type="number" id="menu-price" placeholder="Price" step="0.01" required>
                     </div>
                     <div class="form-row">
+                        <select id="menu-category" required>
+                            <option value="">Select Category</option>
+                            <option value="appetizer">🥗 Appetizer</option>
+                            <option value="bred">🍞 Bread</option>
+                            <option value="main-course">🍽️ Main Course</option>
+                            <option value="dessert">🍰 Dessert</option>
+                            <option value="beverage">🥤 Beverage</option>
+                            <option value="salad">🥙 Salad</option>
+                            <option value="soup">🍲 Soup</option>
+                        </select>
                         <select id="menu-taste" required>
                             <option value="">Select Taste</option>
                             <option value="sweet">Sweet</option>
                             <option value="spicy">Spicy</option>
                             <option value="sour">Sour</option>
+                            <option value="normal">Normal</option>
                         </select>
+                    </div>
+                    <div class="form-row">
                         <label class="checkbox-label">
                             <input type="checkbox" id="menu-drink"> Is Drink?
                         </label>

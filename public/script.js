@@ -1,4 +1,6 @@
-const API_BASE = window.location.origin;
+const API_BASE = window.location.hostname === 'localhost' 
+  ? 'http://localhost:4000' 
+  : 'https://hotels-wf9d.onrender.com';
 
 // Navigation
 function showSection(sectionName) {
@@ -279,6 +281,7 @@ document.getElementById('menu-form').addEventListener('submit', async (e) => {
     const menuData = {
         name: document.getElementById('menu-name').value,
         price: parseFloat(document.getElementById('menu-price').value),
+        category: document.getElementById('menu-category').value,
         taste: document.getElementById('menu-taste').value,
         is_drink: document.getElementById('menu-drink').checked,
         ingredients: ingredients,
@@ -311,9 +314,14 @@ document.getElementById('menu-form').addEventListener('submit', async (e) => {
 async function loadAllMenu() {
     try {
         const response = await fetch(`${API_BASE}/menu`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const menu = await response.json();
+        console.log('Menu loaded:', menu);
         displayMenu(menu);
     } catch (error) {
+        console.error('Menu loading error:', error);
         showMessage('Error loading menu: ' + error.message, 'error');
     }
 }
@@ -326,7 +334,10 @@ function displayMenu(menu) {
         return;
     }
     
-    container.innerHTML = menu.map(item => `
+    container.innerHTML = menu.map(item => {
+        // Handle missing category field for backward compatibility
+        const category = item.category || 'main-course';
+        return `
         <div class="data-item">
             <div class="item-header">
                 <div class="item-title">${item.name}</div>
@@ -339,6 +350,10 @@ function displayMenu(menu) {
                 <div class="detail-item">
                     <span class="detail-label">Price:</span>
                     <span>$${item.price.toFixed(2)}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Category:</span>
+                    <span class="category-badge category-${category}">${getCategoryIcon(category)} ${category.replace('-', ' ')}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Taste:</span>
@@ -358,7 +373,8 @@ function displayMenu(menu) {
                 </div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 async function editMenu(id) {
@@ -380,11 +396,23 @@ async function editMenu(id) {
                     <input type="number" id="edit-menu-price" value="${item.price}" placeholder="Price" step="0.01" required>
                 </div>
                 <div class="form-row">
+                    <select id="edit-menu-category" required>
+                        <option value="appetizer" ${item.category === 'appetizer' ? 'selected' : ''}>🥗 Appetizer</option>
+                        <option value="bred" ${item.category === 'bred' ? 'selected' : ''}>🍞 Bread</option>
+                        <option value="main-course" ${item.category === 'main-course' ? 'selected' : ''}>🍽️ Main Course</option>
+                        <option value="dessert" ${item.category === 'dessert' ? 'selected' : ''}>🍰 Dessert</option>
+                        <option value="beverage" ${item.category === 'beverage' ? 'selected' : ''}>🥤 Beverage</option>
+                        <option value="salad" ${item.category === 'salad' ? 'selected' : ''}>🥙 Salad</option>
+                        <option value="soup" ${item.category === 'soup' ? 'selected' : ''}>🍲 Soup</option>
+                    </select>
                     <select id="edit-menu-taste" required>
                         <option value="sweet" ${item.taste === 'sweet' ? 'selected' : ''}>Sweet</option>
                         <option value="spicy" ${item.taste === 'spicy' ? 'selected' : ''}>Spicy</option>
                         <option value="sour" ${item.taste === 'sour' ? 'selected' : ''}>Sour</option>
+                        <option value="normal" ${item.taste === 'normal' ? 'selected' : ''}>Normal</option>
                     </select>
+                </div>
+                <div class="form-row">
                     <label class="checkbox-label">
                         <input type="checkbox" id="edit-menu-drink" ${item.is_drink ? 'checked' : ''}> Is Drink?
                     </label>
@@ -420,6 +448,7 @@ async function updateMenu(id) {
     const menuData = {
         name: document.getElementById('edit-menu-name').value,
         price: parseFloat(document.getElementById('edit-menu-price').value),
+        category: document.getElementById('edit-menu-category').value,
         taste: document.getElementById('edit-menu-taste').value,
         is_drink: document.getElementById('edit-menu-drink').checked,
         ingredients: ingredients,
@@ -512,6 +541,20 @@ function showMessage(message, type) {
     setTimeout(() => {
         messageDiv.remove();
     }, 5000);
+}
+
+// Utility function for category icons
+function getCategoryIcon(category) {
+    const icons = {
+        'appetizer': '🥗',
+        'bred': '🍞',
+        'main-course': '🍽️',
+        'dessert': '🍰',
+        'beverage': '🥤',
+        'salad': '🥙',
+        'soup': '🍲'
+    };
+    return icons[category] || '🍽️';
 }
 
 // Initialize the app
