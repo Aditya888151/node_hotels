@@ -1,6 +1,6 @@
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:4000' 
-  : 'https://hotels-wf9d.onrender.com';
+  : window.location.origin;
 
 // Navigation
 function showSection(sectionName) {

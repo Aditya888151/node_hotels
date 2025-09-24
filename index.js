@@ -20,6 +20,15 @@ app.use('/menu', menuRoutes);
 app.use('/api/person', personRoutes);
 app.use('/api/menu', menuRoutes);
 
+// Static file routes
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'style.css'));
+});
+
+app.get('/script.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'script.js'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
