@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const db = require('./db');
 
 
@@ -12,6 +13,10 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/api', (req, res) => {
   res.json({status: 'ok', message: 'Restaurant API'});
 });
 
