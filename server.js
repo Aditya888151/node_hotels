@@ -11,7 +11,8 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'http://localhost:4000', 
-    'https://node-hotels-vpvw.vercel.app'
+    'https://node-hotels-vpvw.vercel.app',
+    'https://your-vercel-domain.vercel.app'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
