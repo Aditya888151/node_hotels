@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // const local_URL = process.env.LOCALDB;
-const mongoURL = process.env.MONGODB_URL ;
+const mongoURL = process.env.MONGODB_URL || 'mongodb+srv://singhaditya8052_db_user:Aditya8892@cluster0.h42azqe.mongodb.net/restaurant';
 console.log('MongoDB URL:', mongoURL ? 'Connected' : 'No URL provided');
 
 
-mongoose.connect(mongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).catch(err => {
+mongoose.connect(mongoURL)
+.then(() => {
+    console.log('MongoDB connection successful');
+})
+.catch(err => {
     console.error('MongoDB connection failed:', err);
     process.exit(1);
 });
