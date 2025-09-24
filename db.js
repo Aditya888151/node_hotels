@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // const local_URL = process.env.LOCALDB;
-const mongoURL = process.env.MONGODB_URL || 'mongodb://localhost:27017/restaurant';
+const mongoURL = process.env.MONGODB_URL || process.env.MONGOSH_URL || 'mongodb://localhost:27017/restaurant';
+console.log('MongoDB URL:', mongoURL ? 'Connected' : 'No URL provided');
 
 
 mongoose.connect(mongoURL, {

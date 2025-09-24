@@ -20,7 +20,15 @@
       "dest": "/public/script.js"
     },
     {
+      "src": "/person/(.*)",
+      "dest": "/server.js"
+    },
+    {
       "src": "/person",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/menu/(.*)",
       "dest": "/server.js"
     },
     {

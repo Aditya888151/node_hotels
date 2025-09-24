@@ -39,6 +39,11 @@ app.get('/api', (req, res) => {
   res.json({status: 'ok', message: 'Restaurant API'});
 });
 
+// Test route
+app.get('/test', (req, res) => {
+  res.json({status: 'ok', message: 'Server is working', timestamp: new Date()});
+});
+
 
 const menuRoutes = require('./routes/menuRoutes');
 const personRoutes = require('./routes/personRoutes');
