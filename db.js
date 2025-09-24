@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // const local_URL = process.env.LOCALDB;
-const mongoURL = process.env.MONGODB_URL || 'mongodb+srv://singhaditya8052_db_user:Aditya8892@cluster0.h42azqe.mongodb.net/restaurant';
+const mongoURL = process.env.MONGODB_URL ;
 console.log('MongoDB URL:', mongoURL ? 'Connected' : 'No URL provided');
 
 
