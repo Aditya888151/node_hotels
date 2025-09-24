@@ -2,10 +2,10 @@
   "name": "restaurant-management-fullstack",
   "version": "1.0.0",
   "description": "Full Stack Restaurant Management System",
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js",
+    "start": "node index.js",
     "build": "echo 'No build needed'"
   },
   "dependencies": {
