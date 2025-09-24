@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:4000';
+const API_BASE = window.location.origin;
 
 // Navigation
 function showSection(sectionName) {
