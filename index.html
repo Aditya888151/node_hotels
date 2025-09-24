@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Restaurant Management System</h1>
+            <nav>
+                <button class="nav-btn active" onclick="showSection('person')">Staff Management</button>
+                <button class="nav-btn" onclick="showSection('menu')">Menu Management</button>
+            </nav>
+        </header>
+
+        <!-- Staff Management Section -->
+        <section id="person-section" class="section active">
+            <h2>Staff Management</h2>
+            
+            <div class="form-container">
+                <h3>Add New Staff Member</h3>
+                <form id="person-form">
+                    <div class="form-row">
+                        <input type="text" id="person-name" placeholder="Full Name" required>
+                        <input type="number" id="person-age" placeholder="Age">
+                    </div>
+                    <div class="form-row">
+                        <select id="person-work" required>
+                            <option value="">Select Position</option>
+                            <option value="chef">Chef</option>
+                            <option value="waiter">Waiter</option>
+                            <option value="manager">Manager</option>
+                        </select>
+                        <input type="tel" id="person-mobile" placeholder="Mobile Number" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" id="person-email" placeholder="Email" required>
+                        <input type="number" id="person-salary" placeholder="Salary" required>
+                    </div>
+                    <div class="address-section">
+                        <h4>Address</h4>
+                        <div class="form-row">
+                            <input type="text" id="person-street" placeholder="Street">
+                            <input type="text" id="person-city" placeholder="City">
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="person-state" placeholder="State">
+                            <input type="text" id="person-country" placeholder="Country">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Add Staff Member</button>
+                    <button type="button" class="btn-secondary" onclick="clearPersonForm()">Clear</button>
+                </form>
+            </div>
+
+            <div class="filter-section">
+                <h3>Filter Staff</h3>
+                <select id="work-filter" onchange="filterStaff()">
+                    <option value="">All Staff</option>
+                    <option value="chef">Chefs</option>
+                    <option value="waiter">Waiters</option>
+                    <option value="manager">Managers</option>
+                </select>
+                <button class="btn-secondary" onclick="loadAllStaff()">Refresh</button>
+            </div>
+
+            <div class="data-container">
+                <h3>Staff List</h3>
+                <div id="person-list" class="data-list"></div>
+            </div>
+        </section>
+
+        <!-- Menu Management Section -->
+        <section id="menu-section" class="section">
+            <h2>Menu Management</h2>
+            
+            <div class="form-container">
+                <h3>Add New Menu Item</h3>
+                <form id="menu-form">
+                    <div class="form-row">
+                        <input type="text" id="menu-name" placeholder="Dish Name" required>
+                        <input type="number" id="menu-price" placeholder="Price" step="0.01" required>
+                    </div>
+                    <div class="form-row">
+                        <select id="menu-category" required>
+                            <option value="">Select Category</option>
+                            <option value="appetizer">🥗 Appetizer</option>
+                            <option value="bred">🍞 Bread</option>
+                            <option value="main-course">🍽️ Main Course</option>
+                            <option value="dessert">🍰 Dessert</option>
+                            <option value="beverage">🥤 Beverage</option>
+                            <option value="salad">🥙 Salad</option>
+                            <option value="soup">🍲 Soup</option>
+                        </select>
+                        <select id="menu-taste" required>
+                            <option value="">Select Taste</option>
+                            <option value="sweet">Sweet</option>
+                            <option value="spicy">Spicy</option>
+                            <option value="sour">Sour</option>
+                            <option value="normal">Normal</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="menu-drink"> Is Drink?
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="menu-ingredients" placeholder="Ingredients (comma separated)">
+                        <input type="number" id="menu-sales" placeholder="Number of Sales" value="0">
+                    </div>
+                    <button type="submit" class="btn-primary">Add Menu Item</button>
+                    <button type="button" class="btn-secondary" onclick="clearMenuForm()">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-container">
+                <h3>Menu Items</h3>
+                <button class="btn-secondary" onclick="loadAllMenu()">Refresh Menu</button>
+                <div id="menu-list" class="data-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title">Edit Item</h3>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
