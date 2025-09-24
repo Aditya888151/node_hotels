@@ -1,7 +1,7 @@
 // Use a different API path to avoid ad blocker detection
 const API_BASE = window.location.hostname === 'localhost' 
   ? 'http://localhost:4000' 
-  : 'https://hotels-wf9d.onrender.com';
+  : window.location.origin;
 
 console.log('API Base URL:', API_BASE);
 console.log('Current hostname:', window.location.hostname);
